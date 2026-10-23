@@ -203,4 +203,18 @@
   };
 
   (render[page] || (() => {}))();
+
+  // ---------- Scroll reveal: fade + rise once, staggered within each group ----------
+  if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const io = new IntersectionObserver((entries) => entries.forEach((en) => {
+      if (en.isIntersecting) { en.target.classList.add("is-in"); io.unobserve(en.target); }
+    }), { rootMargin: "0px 0px -8% 0px" });
+    const groups = [".section-head", ".mission", ".offer-card", ".logos li", ".band > *", ".about-grid > *", ".stats > div",
+      ".pillar", ".event-card", ".term", ".member", ".issue", ".join-card", ".faq", ".event-body > *", ".photos img", ".pager a", ".nl-grid > *"];
+    groups.forEach((sel) => document.querySelectorAll(sel).forEach((el, i) => {
+      el.classList.add("reveal");
+      el.style.setProperty("--delay", `${(i % 4) * 80}ms`);
+      io.observe(el);
+    }));
+  }
 })();
