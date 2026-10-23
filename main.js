@@ -54,7 +54,7 @@
         </div>
         <div class="footer-base">
           <span>© ${new Date().getFullYear()} Barnard Investment Group · A student organization at Barnard College</span>
-          <span>Campus photos via Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:Barnard_College,_NYC_IMG_0961.JPG" target="_blank" rel="noopener">Billy Hathorn</a> (CC BY-SA 3.0), <a href="https://commons.wikimedia.org/wiki/File:Milstein_front.jpg" target="_blank" rel="noopener">Mollywollydoodle</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Barnard_College_of_Columbia_University_(52008382627).jpg" target="_blank" rel="noopener">Ajay Suresh</a> (CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:Barnard_College_WDNY_2024_jeh.jpg" target="_blank" rel="noopener">Jim Henderson</a> (CC BY 4.0), <a href="https://commons.wikimedia.org/wiki/File:2014_Barnard_College_Lehman_Hall.jpg" target="_blank" rel="noopener">Beyond My Ken</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:ColumbiaCampusSunset.JPG" target="_blank" rel="noopener">Ctrl build</a> (CC BY-SA 3.0). Firm logos are trademarks of their respective owners.</span>
+          <span>Campus photos via Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:Columbia_University_-_Low_Memorial_Library_(48170370506).jpg" target="_blank" rel="noopener">Ajay Suresh</a> (CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:Milstein_front.jpg" target="_blank" rel="noopener">Mollywollydoodle</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Barnard_College_of_Columbia_University_(52008382627).jpg" target="_blank" rel="noopener">Ajay Suresh</a> (CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:Barnard_College_WDNY_2024_jeh.jpg" target="_blank" rel="noopener">Jim Henderson</a> (CC BY 4.0), <a href="https://commons.wikimedia.org/wiki/File:2014_Barnard_College_Lehman_Hall.jpg" target="_blank" rel="noopener">Beyond My Ken</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:ColumbiaCampusSunset.JPG" target="_blank" rel="noopener">Ctrl build</a> (CC BY-SA 3.0). Firm logos are trademarks of their respective owners.</span>
         </div>
       </div>
     </footer>`;
@@ -204,17 +204,4 @@
 
   (render[page] || (() => {}))();
 
-  // ---------- Scroll reveal: fade + rise once, staggered within each group ----------
-  if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    const io = new IntersectionObserver((entries) => entries.forEach((en) => {
-      if (en.isIntersecting) { en.target.classList.add("is-in"); io.unobserve(en.target); }
-    }), { rootMargin: "0px 0px -8% 0px" });
-    const groups = [".section-head", ".mission", ".offer-card", ".logos li", ".band > *", ".about-grid > *", ".stats > div",
-      ".pillar", ".event-card", ".term", ".member", ".issue", ".join-card", ".faq", ".event-body > *", ".photos img", ".pager a", ".nl-grid > *"];
-    groups.forEach((sel) => document.querySelectorAll(sel).forEach((el, i) => {
-      el.classList.add("reveal");
-      el.style.setProperty("--delay", `${(i % 4) * 80}ms`);
-      io.observe(el);
-    }));
-  }
 })();
