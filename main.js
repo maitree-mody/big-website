@@ -54,7 +54,7 @@
         </div>
         <div class="footer-base">
           <span>© ${new Date().getFullYear()} Barnard Investment Group · A student organization at Barnard College</span>
-          <span>Campus photos via Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:Barnard_(45659026011).jpg" target="_blank" rel="noopener">Billie Grace Ward</a> (CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:Barnard_College,_NYC_IMG_0961.JPG" target="_blank" rel="noopener">Billy Hathorn</a> (CC BY-SA 3.0), <a href="https://commons.wikimedia.org/wiki/File:Milstein_front.jpg" target="_blank" rel="noopener">Mollywollydoodle</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Barnard_College_of_Columbia_University_(52008382627).jpg" target="_blank" rel="noopener">Ajay Suresh</a> (CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:Barnard_College_WDNY_2024_jeh.jpg" target="_blank" rel="noopener">Jim Henderson</a> (CC BY 4.0)</span>
+          <span>Campus photos via Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:Barnard_(45659026011).jpg" target="_blank" rel="noopener">Billie Grace Ward</a> (CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:Milstein_front.jpg" target="_blank" rel="noopener">Mollywollydoodle</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Barnard_College_of_Columbia_University_(52008382627).jpg" target="_blank" rel="noopener">Ajay Suresh</a> (CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:Barnard_College_WDNY_2024_jeh.jpg" target="_blank" rel="noopener">Jim Henderson</a> (CC BY 4.0), <a href="https://commons.wikimedia.org/wiki/File:2014_Barnard_College_Lehman_Hall.jpg" target="_blank" rel="noopener">Beyond My Ken</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:ColumbiaCampusSunset.JPG" target="_blank" rel="noopener">Ctrl build</a> (CC BY-SA 3.0). Firm logos are trademarks of their respective owners.</span>
         </div>
       </div>
     </footer>`;
@@ -88,18 +88,18 @@
 
   const render = {
     home() {
-      $("#firms").innerHTML = BIG.firms.map((f) => `<li title="${esc(f.note)}">${esc(f.name)}</li>`).join("");
+      $("#firms").innerHTML = BIG.firms.map((f) => `<li><img src="${esc(f.logo)}" alt="${esc(f.name)}"${f.tall ? ' class="tall"' : f.wide ? ' class="wide"' : ""} loading="lazy" /></li>`).join("");
       const n = upcoming[0];
       $("#next").innerHTML = n ? `
-        <p class="caps">Next up</p>
+        <p class="caps">Next event</p>
         <a class="next-card" href="${eventUrl(n)}">
           ${dateBlock(n.date)}
           <div><h3>${esc(n.title)}</h3><p>${esc([n.time, n.location].filter(Boolean).join(" · "))}</p><span class="more more--light">Event details →</span></div>
         </a>` : `
-        <p class="caps">Next up</p>
-        <h3 style="color:#fff;font-size:1.9rem;margin-top:14px">New events every week.</h3>
-        <p style="color:rgba(255,255,255,.78)">Subscribe to the newsletter to hear about speakers and site visits first.</p>
-        <a class="more more--light" href="events.html">Past events →</a>`;
+        <p class="caps">Next event</p>
+        <h3 style="margin:14px 0 8px">Events are announced weekly.</h3>
+        <p>Subscribe to the newsletter for the latest speaker events and site visits.</p>
+        <a class="more more--light" href="events.html">Event archive →</a>`;
     },
 
     about() {},
@@ -161,8 +161,8 @@
         <a class="more crumb" href="events.html">← All events</a>
         <div class="event-body">
           <div class="prose">${paras}
-            ${e.link && isFuture ? `<p style="margin-top:24px"><a class="btn" href="${esc(e.link)}" target="_blank" rel="noopener">RSVP &amp; details</a></p>` : ""}
-            ${!photos.length && !isFuture ? `<p style="margin-top:24px"><a class="more" href="${esc(BIG.links.instagram)}" target="_blank" rel="noopener">More from this event on Instagram →</a></p>` : ""}
+            ${e.link && isFuture ? `<p class="prose-actions"><a class="btn" href="${esc(e.link)}" target="_blank" rel="noopener">RSVP &amp; details</a></p>` : ""}
+            ${!photos.length && !isFuture ? `<p class="prose-actions"><a class="more" href="${esc(BIG.links.instagram)}" target="_blank" rel="noopener">View more on Instagram →</a></p>` : ""}
           </div>
           <dl class="facts">${facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
         </div>

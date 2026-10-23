@@ -1,6 +1,6 @@
 /*
  * ============================================================
- *  BIG WEBSITE CONTENT — edit this file to update the site.
+ *  BIG WEBSITE CONTENT: edit this file to update the site.
  *  No coding needed: change the text between the quotes,
  *  copy/paste a { ... } block to add a new item.
  * ============================================================
@@ -19,31 +19,29 @@ window.BIG = {
   },
 
 
-  // "Speakers & site visits with" list on the home page
+  // Firm logo grid on the home page (logo files live in assets/logos/; "tall" / "wide" adjust sizing for unusually shaped logos)
   firms: [
-    { name: "Goldman Sachs", note: "Site visits · Speakers" },
-    { name: "Bank of America", note: "Site visits" },
-    { name: "BlackRock", note: "Fireside chat" },
-    { name: "Blackstone", note: "Speaker" },
-    { name: "KKR", note: "Speaker" },
-    { name: "Morgan Stanley", note: "Speaker" },
-    { name: "J.P. Morgan", note: "Speaker" },
-    { name: "Macquarie", note: "Speaker" },
-    { name: "HSBC", note: "Site visit · Office hours" },
-    { name: "PGIM", note: "Recruiting events" },
-    { name: "Centerview Partners", note: "Speaker panel" },
-    { name: "Santander", note: "Career panel" },
+    { name: "Goldman Sachs", logo: "assets/logos/goldman-sachs.svg", tall: true },
+    { name: "Bank of America", logo: "assets/logos/bank-of-america.svg", wide: true },
+    { name: "BlackRock", logo: "assets/logos/blackrock.svg" },
+    { name: "Blackstone", logo: "assets/logos/blackstone.svg" },
+    { name: "KKR", logo: "assets/logos/kkr.svg" },
+    { name: "Morgan Stanley", logo: "assets/logos/morgan-stanley.svg" },
+    { name: "J.P. Morgan", logo: "assets/logos/jp-morgan.svg" },
+    { name: "Macquarie", logo: "assets/logos/macquarie.svg" },
+    { name: "HSBC", logo: "assets/logos/hsbc.svg" },
+    { name: "Santander", logo: "assets/logos/santander.svg" },
   ],
 
   /*
-   * EVENTS — one list. The site sorts them by date automatically:
+   * EVENTS: one list. The site sorts them by date automatically:
    * future dates show under "Upcoming", past dates go to the archive.
    * Every event gets its own page.
    *
    * type:        "speaker" | "site-visit" | "workshop" | "community"
    * date:        "YYYY-MM-DD"        time: any text, e.g. "5:00 – 6:00 PM"
    * description: one or two sentences (shown in lists and on the event page)
-   * recap:       optional longer write-up for the event page — use "\n\n" between paragraphs
+   * recap:       optional longer write-up for the event page; use "\n\n" between paragraphs
    * photos:      optional list of image paths, e.g. ["assets/events/gs-1.jpg", "assets/events/gs-2.jpg"]
    * link:        optional RSVP / registration link
    */
@@ -76,7 +74,7 @@ window.BIG = {
       description: "Resume feedback from BIG board members and Beyond Barnard staff." },
     { date: "2026-02-05", time: "7:00 – 8:00 PM", type: "speaker", title: "Alessandra Rago", org: "Blackstone", location: "Milstein",
       description: "A conversation with Alessandra Rago of Blackstone's Private Wealth Solutions group." },
-    // NOTE: photos below were matched to events by guesswork from Instagram — please confirm or swap
+    // NOTE: photos below were matched to events by guesswork from Instagram: please confirm or swap
     { date: "2026-01-30", type: "site-visit", title: "Goldman Sachs Site Visit", org: "Goldman Sachs", location: "200 West Street",
       description: "Members visited Goldman Sachs headquarters for a panel with professionals across the firm.",
       photos: ["assets/gallery/photo-01.jpg", "assets/gallery/photo-11.jpg", "assets/gallery/photo-12.jpg"] },
@@ -104,7 +102,7 @@ window.BIG = {
   ],
 
   /*
-   * EXECUTIVE BOARD — photo goes in assets/eboard/ (square works best).
+   * EXECUTIVE BOARD: photo goes in assets/eboard/ (square works best).
    * Leave photo "" to show initials. Leave linkedin "" to hide the link.
    */
   eboardYear: "2026–2027",
