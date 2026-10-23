@@ -98,7 +98,11 @@ a[hidden], .btn[hidden] { display: none !important; }
 .banner .wrap { width: 100%; padding-top: 120px; padding-bottom: 52px; }
 .banner h1 { color: var(--white); font-size: var(--fs-h1); font-weight: 800; max-width: 20ch; }
 .banner p.lede { color: rgba(255, 255, 255, .85); font-size: var(--fs-lead); max-width: 60ch; margin: 16px 0 0; }
-.banner--home h1 { max-width: 24ch; }
+.banner--home { min-height: clamp(600px, 100svh, 1000px); }
+.banner--home::before { background: linear-gradient(to top, rgba(19, 26, 61, .88) 0%, rgba(19, 26, 61, .45) 38%, rgba(19, 26, 61, .08) 75%); }
+.banner--home .wrap { padding-bottom: clamp(64px, 12vh, 120px); }
+.banner--home h1 { font-size: var(--fs-display); line-height: 1.05; max-width: 14ch; }
+.section--logos { padding-top: 0; }
 .banner--plain { min-height: 340px; background: var(--navy); }
 .banner--plain::before { background: radial-gradient(900px 400px at 85% 0%, rgba(143, 163, 220, .28), transparent 60%); }
 
