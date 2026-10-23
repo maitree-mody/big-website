@@ -287,7 +287,6 @@ a[hidden], .btn[hidden] { display: none !important; }
   .board { grid-template-columns: repeat(2, minmax(0, 260px)); }
   .pillar { grid-template-columns: 1fr; }
   .pillar__img { min-height: 160px; }
-  .logos { grid-template-columns: repeat(3, 1fr); }
   .offer { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
@@ -307,12 +306,12 @@ a[hidden], .btn[hidden] { display: none !important; }
   .stats div + div { border-left: 0; }
   .pillars { grid-template-columns: 1fr; }
   .banner { min-height: 340px; }
+  .banner--home { min-height: clamp(560px, 100svh, 1000px); }
 }
 @media (max-width: 560px) {
   .brand span { letter-spacing: .12em; }
   .offer { grid-template-columns: 1fr; }
   .board { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 16px; }
-  .logos { grid-template-columns: repeat(2, 1fr); }
   .logos li { height: 96px; }
   .elist a { grid-template-columns: 1fr 16px; gap: 6px 10px; }
   .elist time { grid-column: 1; }
@@ -324,3 +323,4 @@ a[hidden], .btn[hidden] { display: none !important; }
   .join-card { padding: 32px 22px; }
   .footer-grid { grid-template-columns: 1fr; }
 }
+@media (max-width: 680px) { .logos { grid-template-columns: repeat(2, 1fr); } }
