@@ -17,10 +17,6 @@ Almost everything lives in **`data.js`**:
 
 Pages: `index.html` (home), `about.html`, `events.html`, `event.html` (one template for every event), `team.html`, `newsletter.html`, `join.html`. The header and footer are shared, in `main.js`.
 
-## Upcoming events come from the newsletter automatically
-
-The refresh script also reads BIG's upcoming events out of recent newsletter issues (the "📅 Date / 🕒 Time / 📍 Location" lines under each heading) and shows them on the Events page and in the home page "Next Event" box. Only BIG's own events are kept (titles with BIG, site visit or general body, or held in a Barnard building); other organizations' opportunities the newsletter advertises are skipped. Anything you add to `events` in `data.js` wins over a newsletter entry for the same day, and past events only ever come from `data.js`, so add a line there (with a recap and photos if you have them) once an event has happened.
-
 ## Newsletter cards
 
 The "Latest issues" cards come from `newsletter.js`, generated from Substack by:

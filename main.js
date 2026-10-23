@@ -13,16 +13,7 @@
 
   // ---------- Events ----------
   const slugify = (s) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-  // Upcoming events announced in the newsletter (scripts/update_newsletter.py) fill in anything not
-  // already listed in data.js; past events always come from data.js.
-  const norm = (s) => s.toLowerCase().replace(/[^a-z]/g, "");
-  const listed = new Set(BIG.events.map((e) => e.date + norm(e.title)));
-  const sameDay = (e) => BIG.events.some((x) => x.date === e.date && (x.type === e.type || norm(x.title).includes(norm(e.title).slice(0, 10)) || norm(e.title).includes(norm(x.title).slice(0, 10))));
-  const fromNewsletter = (window.BIG_NEWSLETTER_EVENTS || []).filter((e) => !listed.has(e.date + norm(e.title)) && !sameDay(e));
-  const events = [...BIG.events, ...fromNewsletter]
-    .filter((e) => e.source !== "newsletter" || new Date(e.date + "T23:59") >= new Date())
-    .map((e) => ({ ...e, org: e.org || "", slug: e.date + "-" + slugify(e.title) }))
-    .sort((a, b) => b.date.localeCompare(a.date));
+  const events = BIG.events.map((e) => ({ ...e, slug: e.date + "-" + slugify(e.title) })).sort((a, b) => b.date.localeCompare(a.date));
   const upcoming = events.filter((e) => parseDate(e.date) >= today).reverse();
   const past = events.filter((e) => parseDate(e.date) < today);
   const eventUrl = (e) => "event.html?e=" + encodeURIComponent(e.slug);
@@ -62,7 +53,7 @@
             <address>Barnard College<br />3009 Broadway<br />New York, NY 10027</address></div>
         </div>
         <div class="footer-base">
-          <span>© ${new Date().getFullYear()} Barnard Investment Group. A student organization at Barnard College.</span>
+          <span>© ${new Date().getFullYear()} Barnard Investment Group · A student organization at Barnard College</span>
           <span>Campus photos via Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:Milbank,_Brinckerhoff,_and_Fiske_Halls_-_Barnard_College_(55466789970).jpg" target="_blank" rel="noopener">Ajay Suresh</a> (CC BY 4.0), <a href="https://commons.wikimedia.org/wiki/File:Milstein_front.jpg" target="_blank" rel="noopener">Mollywollydoodle</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Barnard_College_of_Columbia_University_(52008382627).jpg" target="_blank" rel="noopener">Ajay Suresh</a> (CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:Barnard_College_WDNY_2024_jeh.jpg" target="_blank" rel="noopener">Jim Henderson</a> (CC BY 4.0), <a href="https://commons.wikimedia.org/wiki/File:2014_Barnard_College_Lehman_Hall.jpg" target="_blank" rel="noopener">Beyond My Ken</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:ColumbiaCampusSunset.JPG" target="_blank" rel="noopener">Ctrl build</a> (CC BY-SA 3.0). Firm logos are trademarks of their respective owners.</span>
         </div>
       </div>
@@ -79,24 +70,6 @@
     menu.setAttribute("aria-expanded", open);
     menu.textContent = open ? "Close" : "Menu";
   });
-
-  // Jump links under the banner, built from <section data-nav="Label" id="...">
-  const navSections = [...document.querySelectorAll("[data-nav]")];
-  const banner = document.querySelector(".banner");
-  if (navSections.length > 1 && banner) {
-    const bar = document.createElement("nav");
-    bar.className = "subnav";
-    bar.setAttribute("aria-label", "On this page");
-    bar.innerHTML = `<div class="wrap">${navSections.map((s) => `<a href="#${s.id}">${s.dataset.nav}</a>`).join("")}</div>`;
-    banner.after(bar);
-    const links = [...bar.querySelectorAll("a")];
-    const mark = () => {
-      let current = navSections[0];
-      navSections.forEach((s) => { if (s.getBoundingClientRect().top < 160) current = s; });
-      links.forEach((l) => l.classList.toggle("is-active", l.getAttribute("href") === "#" + current.id));
-    };
-    window.addEventListener("scroll", mark, { passive: true }); mark();
-  }
 
   // Fill any [data-link="key"] anchor from data.js
   document.querySelectorAll("[data-link]").forEach((a) => {
@@ -209,7 +182,7 @@
           <h3>${esc(p.name)}</h3>
           <p class="role">${esc(p.role)}</p>
           ${p.major ? `<p class="major">${esc(p.major)}</p>` : ""}
-          ${p.experience && p.experience.length ? `<p class="exp">${p.experience.map(esc).join(", ")}</p>` : ""}
+          ${p.experience && p.experience.length ? `<p class="exp">${p.experience.map(esc).join(" · ")}</p>` : ""}
           ${p.linkedin ? `<a href="${esc(p.linkedin)}" target="_blank" rel="noopener">LinkedIn</a>` : ""}
         </article>`).join("");
     },
