@@ -27,6 +27,14 @@ python3 scripts/update_newsletter.py
 
 Once on GitHub, `.github/workflows/update-newsletter.yml` runs it daily, so the cards stay current on their own.
 
+## After editing CSS or JS
+
+Each page loads `styles.css?v=...`, `main.js?v=...` etc. Bump that number (any new value) when you change those files, or visitors' browsers may keep showing the old version for up to 10 minutes:
+
+```
+V=$(date +%Y%m%d%H%M); sed -i '' -E "s#(styles.css|data.js|newsletter.js|main.js)\?v=[0-9]+#\1?v=$V#g" *.html
+```
+
 ## Preview locally
 
 ```
