@@ -95,6 +95,7 @@ a[hidden], .btn[hidden] { display: none !important; }
 .banner .wrap { width: 100%; padding-top: 88px; padding-bottom: 40px; }
 .banner h1 { color: var(--white); font-size: var(--fs-h1); font-weight: 700; }
 .banner p.lede { color: rgba(255, 255, 255, .85); font-size: var(--fs-lead); max-width: 60ch; margin: 16px 0 0; }
+.banner p.lede--wide { max-width: 90ch; }
 .banner--home { height: auto; min-height: calc(100svh - 64px); align-items: flex-end; }
 .banner--home::before { background: linear-gradient(to top, rgba(10, 14, 32, .75) 0%, rgba(10, 14, 32, .3) 50%, rgba(10, 14, 32, .05) 100%), linear-gradient(to right, rgba(10, 14, 32, .4) 0%, rgba(10, 14, 32, 0) 55%); }
 .banner--home { background-position: center 30%; }
