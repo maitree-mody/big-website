@@ -13,7 +13,16 @@
 
   // ---------- Events ----------
   const slugify = (s) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-  const events = BIG.events.map((e) => ({ ...e, slug: e.date + "-" + slugify(e.title) })).sort((a, b) => b.date.localeCompare(a.date));
+  // Upcoming events announced in the newsletter (scripts/update_newsletter.py) fill in anything not
+  // already listed in data.js; past events always come from data.js.
+  const norm = (s) => s.toLowerCase().replace(/[^a-z]/g, "");
+  const listed = new Set(BIG.events.map((e) => e.date + norm(e.title)));
+  const sameDay = (e) => BIG.events.some((x) => x.date === e.date && (x.type === e.type || norm(x.title).includes(norm(e.title).slice(0, 10)) || norm(e.title).includes(norm(x.title).slice(0, 10))));
+  const fromNewsletter = (window.BIG_NEWSLETTER_EVENTS || []).filter((e) => !listed.has(e.date + norm(e.title)) && !sameDay(e));
+  const events = [...BIG.events, ...fromNewsletter]
+    .filter((e) => e.source !== "newsletter" || new Date(e.date + "T23:59") >= new Date())
+    .map((e) => ({ ...e, org: e.org || "", slug: e.date + "-" + slugify(e.title) }))
+    .sort((a, b) => b.date.localeCompare(a.date));
   const upcoming = events.filter((e) => parseDate(e.date) >= today).reverse();
   const past = events.filter((e) => parseDate(e.date) < today);
   const eventUrl = (e) => "event.html?e=" + encodeURIComponent(e.slug);
@@ -25,15 +34,16 @@
   document.querySelectorAll("[data-bg]").forEach((el) => { el.style.backgroundImage = `url("${el.dataset.bg}")`; });
 
   // ---------- Shared header / footer ----------
-  const NAV = [["about", "About"], ["events", "Events"], ["team", "Team"], ["newsletter", "Newsletter"], ["join", "Join"]];
+  const NAV = [["home", "Home"], ["about", "About"], ["events", "Events"], ["team", "Team"], ["newsletter", "Newsletter"], ["join", "Join"]];
   const current = page === "event" ? "events" : page;
+  const href = (k) => (k === "home" ? "index" : k) + ".html";
   $("#site-header").outerHTML = `
     <header class="site-header">
       <div class="wrap site-header__inner">
         <a class="brand" href="index.html"><img src="assets/logo.png" alt="" /><span>Barnard<br />Investment Group</span></a>
         <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
         <nav class="nav" id="nav">
-          ${NAV.map(([k, label]) => `<a href="${k}.html"${k === current ? ' aria-current="page"' : ""}>${label}</a>`).join("")}
+          ${NAV.map(([k, label]) => `<a href="${href(k)}"${k === current ? ' aria-current="page"' : ""}>${label}</a>`).join("")}
         </nav>
       </div>
     </header>`;
@@ -42,7 +52,7 @@
       <div class="wrap">
         <div class="footer-grid">
           <div class="footer-brand"><img src="assets/logo.png" alt="Barnard Investment Group logo" /><p>Empowering women to pursue careers in finance.</p></div>
-          <div><h4>Explore</h4><ul>${NAV.map(([k, l]) => `<li><a href="${k}.html">${l}</a></li>`).join("")}</ul></div>
+          <div><h4>Explore</h4><ul>${NAV.map(([k, l]) => `<li><a href="${href(k)}">${l}</a></li>`).join("")}</ul></div>
           <div><h4>Follow</h4><ul>
             <li><a href="${esc(BIG.links.instagram)}" target="_blank" rel="noopener">Instagram</a></li>
             <li><a href="${esc(BIG.links.linkedin)}" target="_blank" rel="noopener">LinkedIn</a></li>
@@ -58,11 +68,6 @@
         </div>
       </div>
     </footer>`;
-
-  // Transparent header over the photo, solid once you scroll past it
-  const header = $(".site-header");
-  const onScroll = () => header.classList.toggle("is-solid", window.scrollY > 40);
-  window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
 
   const menu = $(".menu-btn");
   menu.addEventListener("click", () => {
