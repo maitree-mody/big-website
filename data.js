@@ -131,7 +131,5 @@ window.BIG = {
       experience: ["Tech & WM Consulting", "Product / UX Research"], linkedin: "" },
     { name: "Nuna Endale", role: "Head of Outreach", major: "Economics & Social History", photo: "assets/eboard/nuna-endale.jpg",
       experience: ["American Express", "Laidlaw Research Scholar"], linkedin: "" },
-    { name: "Ashley Wang", role: "Board Member", major: "Financial Economics", photo: "assets/eboard/ashley-wang.jpg",
-      experience: ["UBS", "Stellex Capital", "Girls Who Invest"], linkedin: "" },
   ],
 };
