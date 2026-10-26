@@ -61,8 +61,6 @@ window.BIG = {
     { date: "2026-10-16", time: "11:00 AM – 12:00 PM", type: "speaker", title: "PGIM Fixed Income Recruiting Event", org: "PGIM", location: "Milstein" },
     { date: "2026-09-24", time: "6:30 PM", type: "workshop", title: "Girls Who Invest Info Session", org: "Girls Who Invest", location: "Milstein",
       description: "An info session on the Girls Who Invest Scholars Program, a pathway into asset management." },
-    { date: "2026-05-05", type: "workshop", title: "Renting in New York Webinar", org: "Cooper & Cooper Real Estate", location: "Virtual",
-      description: "A practical session on finding and renting an apartment in New York City." },
     { date: "2026-04-22", time: "6:30 – 7:30 PM", type: "speaker", title: "ÊTRE Speaker Panel", org: "ÊTRE", location: "Milstein",
       description: "A speaker panel led by ÊTRE's founder on navigating corporate spaces with confidence." },
     { date: "2026-04-21", time: "6:30 – 7:30 PM", type: "speaker", title: "Amanda Magliaro, Partner", org: "KKR Capital Markets", location: "Milbank",

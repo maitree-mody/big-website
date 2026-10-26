@@ -195,7 +195,7 @@
           <h3>${esc(p.name)}</h3>
           <p class="role">${esc(p.role)}</p>
           ${p.major ? `<p class="major">${esc(p.major)}</p>` : ""}
-          ${p.experience && p.experience.length ? `<p class="exp">${p.experience.map(esc).join(" · ")}</p>` : ""}
+          ${p.experience && p.experience.length ? `<p class="exp"><strong>Experience:</strong> ${p.experience.map(esc).join(", ")}</p>` : ""}
           ${p.linkedin ? `<a href="${esc(p.linkedin)}" target="_blank" rel="noopener">LinkedIn</a>` : ""}
         </article>`).join("");
     },
