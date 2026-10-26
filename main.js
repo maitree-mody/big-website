@@ -28,6 +28,9 @@
   const eventUrl = (e) => "event.html?e=" + encodeURIComponent(e.slug);
   const withOrg = (e) => e.org && e.org !== "BIG" && !e.title.includes(e.org) ? e.org : "";
 
+  // Event photos in rows: four as 2 + 2, otherwise up to three per row
+  const photoRows = (list) => { const n = list.length === 4 ? 2 : 3; const rows = []; for (let i = 0; i < list.length; i += n) rows.push(list.slice(i, i + n)); return rows; };
+
   const dateBlock = (iso) => `<span class="date-block"><span>${fmt(iso, { month: "short" })}</span><strong>${fmt(iso, { day: "numeric" })}</strong><span>${fmt(iso, { weekday: "short" })}</span></span>`;
 
   // ---------- Photo banners: <section data-bg="path"> ----------
@@ -64,7 +67,7 @@
         </div>
         <div class="footer-base">
           <span>© ${new Date().getFullYear()} Barnard Investment Group · A student organization at Barnard College</span>
-          <span>Campus photos via Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:Milbank,_Brinckerhoff,_and_Fiske_Halls_-_Barnard_College_(55466789970).jpg" target="_blank" rel="noopener">Ajay Suresh</a> (CC BY 4.0), <a href="https://commons.wikimedia.org/wiki/File:Milstein_front.jpg" target="_blank" rel="noopener">Mollywollydoodle</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Barnard_College_of_Columbia_University_(52008382627).jpg" target="_blank" rel="noopener">Ajay Suresh</a> (CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:Barnard_College_WDNY_2024_jeh.jpg" target="_blank" rel="noopener">Jim Henderson</a> (CC BY 4.0), <a href="https://commons.wikimedia.org/wiki/File:2014_Barnard_College_Lehman_Hall.jpg" target="_blank" rel="noopener">Beyond My Ken</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:ColumbiaCampusSunset.JPG" target="_blank" rel="noopener">Ctrl build</a> (CC BY-SA 3.0). Firm logos are trademarks of their respective owners.</span>
+          <span>Statue and garden photos: <a href="http://www.boldbeautifulbarnard.com/" target="_blank" rel="noopener">Bold. Beautiful. Barnard.</a> Gate photo: Barnard College. Campus photos via Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:Milstein_front.jpg" target="_blank" rel="noopener">Mollywollydoodle</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Barnard_College_of_Columbia_University_(52008382627).jpg" target="_blank" rel="noopener">Ajay Suresh</a> (CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:ColumbiaCampusSunset.JPG" target="_blank" rel="noopener">Ctrl build</a> (CC BY-SA 3.0). Firm logos are trademarks of their respective owners.</span>
         </div>
       </div>
     </footer>`;
@@ -171,11 +174,16 @@
           </div>
           <dl class="facts">${facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
         </div>
-        ${photos.length ? `<div class="photos">${photos.map((src) => `<img src="${esc(src)}" alt="${esc(e.title)}" loading="lazy" />`).join("")}</div>` : ""}
+        ${photos.length ? `<div class="photos">${photoRows(photos).map((row) => `<div class="photos__row${row.length === 1 ? " photos__row--single" : ""}">${row.map((src) => `<img src="${esc(src)}" alt="${esc(e.title)}" loading="lazy" />`).join("")}</div>`).join("")}</div>` : ""}
         <nav class="pager">
           ${older ? `<a href="${eventUrl(older)}"><span class="caps">← Previous</span><strong>${esc(older.title)}</strong></a>` : ""}
           ${newer ? `<a class="next" href="${eventUrl(newer)}"><span class="caps">Next →</span><strong>${esc(newer.title)}</strong></a>` : ""}
         </nav>`;
+      // Size each photo by its own shape so rows line up at one height and nothing gets cropped
+      document.querySelectorAll(".photos__row img").forEach((img) => {
+        const fit = () => { img.style.flexGrow = img.naturalWidth / img.naturalHeight; img.style.aspectRatio = `${img.naturalWidth} / ${img.naturalHeight}`; };
+        img.complete && img.naturalWidth ? fit() : img.addEventListener("load", fit);
+      });
     },
 
     team() {
