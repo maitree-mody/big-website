@@ -68,6 +68,7 @@ a[hidden], .btn[hidden] { display: none !important; }
 
 .more { font: 600 var(--fs-label)/1 var(--sans); letter-spacing: .18em; text-transform: uppercase; text-decoration: none; color: var(--navy); border-bottom: 1.5px solid var(--peri); padding-bottom: 5px; transition: color .15s; }
 .more:hover { color: var(--peri-ink); }
+.more-links { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
 .more--light { color: var(--white); }
 .more--light:hover { color: var(--peri); }
 
