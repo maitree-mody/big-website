@@ -89,9 +89,8 @@
   const eventRow = (e) => `
     <li><a href="${eventUrl(e)}">
       <time datetime="${e.date}">${fmt(e.date, { month: "short", day: "numeric" })}</time>
-      <span><strong>${esc(e.title)}</strong>${e.photos && e.photos.length ? '<span class="photo-flag">Photos</span>' : ""}${withOrg(e) ? `<small>${esc(withOrg(e))}</small>` : ""}</span>
-      <span class="tag tag--${e.type}">${TYPE_LABEL[e.type] || ""}</span>
-      <span class="go">→</span>
+      <span><strong>${esc(e.title)}</strong>${withOrg(e) || (e.photos && e.photos.length) ? `<small>${esc([withOrg(e), e.photos && e.photos.length ? "Recap & photos" : ""].filter(Boolean).join(" · "))}</small>` : ""}</span>
+      <span class="type">${TYPE_LABEL[e.type] || ""}</span>
     </a></li>`;
 
   const render = {
@@ -116,9 +115,10 @@
       $("#upcoming").innerHTML = upcoming.length
         ? `<div class="upcoming">${upcoming.map((e) => `
             <a class="event-card" href="${eventUrl(e)}">
-              ${dateBlock(e.date)}
-              <div><span class="tag tag--${e.type}">${TYPE_LABEL[e.type]}</span><h3>${esc(e.title)}</h3>
-              <p class="meta">${esc([e.time, e.location].filter(Boolean).join(" · "))}</p></div>
+              <p class="caps">${fmt(e.date, { weekday: "long", month: "long", day: "numeric" })}</p>
+              <h3>${esc(e.title)}</h3>
+              <p class="meta">${esc([e.time, e.location].filter(Boolean).join(" · "))}</p>
+              <span class="more">Details →</span>
             </a>`).join("")}</div>`
         : `<p class="empty">Nothing on the calendar yet. Subscribe to the <a href="newsletter.html">newsletter</a> or follow along on <a href="${esc(BIG.links.instagram)}" target="_blank" rel="noopener">Instagram</a>.</p>`;
 
@@ -130,7 +130,7 @@
         const visible = showAll || filter !== "all" ? terms : terms.slice(0, TERMS_SHOWN);
         $("#archive").innerHTML = terms.length ? visible.map((t) => {
           const items = list.filter((e) => term(e.date) === t);
-          return `<div class="term"><h3>${t} <span>${items.length} event${items.length > 1 ? "s" : ""}</span></h3>
+          return `<div class="term"><h3>${t}</h3>
             <ul class="elist">${items.map(eventRow).join("")}</ul></div>`;
         }).join("") : `<p class="empty">No events match.</p>`;
         $("#more").hidden = visible.length === terms.length;
