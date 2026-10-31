@@ -1,8 +1,6 @@
 name: Refresh newsletter cards
 
 on:
-  schedule:
-    - cron: "0 13 * * *" # daily, ~9am ET
   workflow_dispatch:
 
 permissions:
