@@ -342,3 +342,6 @@ a[hidden], .btn[hidden] { display: none !important; }
   .footer-brand, .footer-grid > div:last-child { grid-column: 1 / -1; }
 }
 @media (max-width: 680px) { .logos, .logo-row { grid-template-columns: repeat(2, 1fr); } }
+
+.team-photo { margin: 0 0 56px; }
+.team-photo img { display: block; width: 100%; height: auto; border-radius: var(--radius); }
